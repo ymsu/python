@@ -23,18 +23,11 @@ class FuncThread(threading.Thread):
     def get_result(self):
         return self.result
 
+    def do_in_thread(func, *args, **kwargs):
+        ft = FuncThread(func, *args, **kwargs)
+        ft.start()
+        return ft
 
-# def sleep(n):
-#     time.sleep(n)
-#     print('sleep %s second' % n)
-#     return 'money'
-#
-#
-# def do_in_thread(func, *args, **kwargs):
-#     ft = FuncThread(func, *args, **kwargs)
-#     ft.start()
-#     return ft
-#
 # t = do_in_thread(sleep, 2)
 # time.sleep(2.5)
 # print(t.get_result())
