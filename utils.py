@@ -2,6 +2,9 @@
 
 import threading
 import time
+import os
+
+# 线程类
 
 class FuncThread(threading.Thread):
     
@@ -28,6 +31,18 @@ class FuncThread(threading.Thread):
         ft.start()
         return ft
 
-# t = do_in_thread(sleep, 2)
-# time.sleep(2.5)
-# print(t.get_result())
+# 函数执行超时时间判断
+
+def handle_timeout(func, timeout, *args, **kwargs):
+    interval = 1
+    
+    ret = None
+    while timeout > 0:
+        begin_time = time.time()
+        ret = func(*args, **kwargs)
+        if ret:
+            break
+        time.sleep(interval)
+        timeout -= time.time() - begin_time
+    
+    return ret
